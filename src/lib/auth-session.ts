@@ -17,14 +17,14 @@ export const getSession = cache(async () => {
 });
 
 /**
- * Like `getSession`, but redirects unauthenticated requests to `/register`.
+ * Like `getSession`, but redirects unauthenticated requests to `/login`.
  * Use on any page that requires a signed-in user.
  */
 export const requireSession = async () => {
   const session = await getSession();
 
   if (!session) {
-    redirect("/register");
+    redirect("/login");
   }
 
   return session;
