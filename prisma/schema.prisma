@@ -87,7 +87,7 @@ model Expense {
   categoryId  String   @db.ObjectId
   category    Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   amountMinor Int
-  currency    String   @default("USD")
+  currency    String   @default("BDT")
   description String?
   date        DateTime
   createdAt   DateTime @default(now())

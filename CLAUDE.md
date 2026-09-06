@@ -58,6 +58,7 @@ Every user-owned resource must be scoped to the authenticated user, determined s
 
 - Validate on the server with Zod: amount, category, description, date, IDs, query/filter params, and other user input. Never rely only on client-side validation.
 - Avoid floating-point arithmetic for exact monetary values; use a precise representation supported by Prisma/MongoDB. Don't silently mix currencies.
+- Expenso supports exactly one currency: **BDT (Bangladeshi Taka)**. There is no currency selector and no multi-currency support — never accept a client-supplied `currency`, never default to USD or any other currency, and every expense is created, stored, and displayed in BDT.
 
 ## Expenses & Analytics
 
@@ -122,7 +123,7 @@ Use clear, conventional commit messages (`feat:`, `fix:`, `refactor:` ...). Neve
 
 ## Avoid
 
-Separate backend framework; replacing MongoDB or Prisma without instruction; Prisma in Client Components; trusting client-provided `userId`; cross-user data access; client-only authorization; exposing secrets to the browser; hardcoded credentials; unnecessary dependencies; unrelated file changes; over-engineering; unrequested features; destructive DB changes without permission; editing files during plan-only tasks; outdated APIs when current docs are available (use Context7).
+Separate backend framework; replacing MongoDB or Prisma without instruction; Prisma in Client Components; trusting client-provided `userId`; cross-user data access; client-only authorization; exposing secrets to the browser; hardcoded credentials; unnecessary dependencies; unrelated file changes; over-engineering; unrequested features; destructive DB changes without permission; editing files during plan-only tasks; outdated APIs when current docs are available (use Context7); currency selection or any currency other than BDT.
 
 ## Commands
 
