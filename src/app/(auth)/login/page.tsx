@@ -6,21 +6,18 @@ import { getAuthErrorMessage } from "@/lib/auth-errors";
 import { getSession } from "@/lib/auth-session";
 
 export const metadata: Metadata = {
-  title: "Create your account",
-  description:
-    "Sign up for Expenso with your Google account to start tracking your expenses.",
+  title: "Log in",
+  description: "Log in to Expenso with your Google account.",
   alternates: {
-    canonical: "/register",
+    canonical: "/login",
   },
 };
 
-type RegisterPageProps = {
+type LoginPageProps = {
   searchParams: Promise<{ error?: string }>;
 };
 
-export default async function RegisterPage({
-  searchParams,
-}: RegisterPageProps) {
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const session = await getSession();
 
   if (session) {
@@ -34,11 +31,11 @@ export default async function RegisterPage({
     <div className="flex flex-col items-center gap-6">
       <div className="flex flex-col items-center gap-3 text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          Create your account
+          Welcome back
         </h1>
         <p className="text-sm text-muted-foreground">
-          Sign up with Google — it&apos;s the only way to create an Expenso
-          account right now.
+          Log in with Google — it&apos;s the only way to sign in to Expenso
+          right now.
         </p>
       </div>
 
@@ -52,19 +49,15 @@ export default async function RegisterPage({
         </p>
       ) : null}
 
-      <GoogleSignInButton errorCallbackURL="/register" />
-
-      <p className="text-center text-xs text-muted-foreground">
-        By continuing, you agree to sign in using your Google account.
-      </p>
+      <GoogleSignInButton callbackURL="/dashboard" errorCallbackURL="/login" />
 
       <p className="text-center text-sm text-muted-foreground">
-        Already have an account?{" "}
+        Don&apos;t have an account?{" "}
         <Link
-          href="/login"
+          href="/register"
           className="underline underline-offset-4 hover:text-foreground"
         >
-          Log in
+          Create one
         </Link>
       </p>
 

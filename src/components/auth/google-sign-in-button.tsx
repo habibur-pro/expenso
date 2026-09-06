@@ -35,10 +35,12 @@ function GoogleMark() {
 
 type GoogleSignInButtonProps = {
   callbackURL?: string;
+  errorCallbackURL?: string;
 };
 
 export function GoogleSignInButton({
   callbackURL = "/dashboard",
+  errorCallbackURL = "/register",
 }: GoogleSignInButtonProps) {
   const [isPending, setIsPending] = useState(false);
 
@@ -47,7 +49,7 @@ export function GoogleSignInButton({
     await signIn.social({
       provider: "google",
       callbackURL,
-      errorCallbackURL: "/register",
+      errorCallbackURL,
     });
     // On success the browser navigates away to Google's consent screen; if
     // this resolves without a redirect having happened, the request itself
