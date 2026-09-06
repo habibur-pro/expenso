@@ -6,6 +6,8 @@ import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Faq } from "@/components/marketing/faq";
 import { CtaSection } from "@/components/marketing/cta-section";
 import { SiteFooter } from "@/components/marketing/site-footer";
+import { MotionProvider } from "@/components/marketing/motion/motion-provider";
+import { ScrollProgress } from "@/components/marketing/motion/scroll-progress";
 
 const TITLE = "Expenso — Track Expenses, Understand Your Spending";
 const DESCRIPTION =
@@ -34,8 +36,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
+    <MotionProvider>
       <SiteHeader />
+      <ScrollProgress />
       <main>
         <Hero />
         <FeatureGrid />
@@ -44,6 +47,6 @@ export default function Home() {
         <CtaSection />
       </main>
       <SiteFooter />
-    </>
+    </MotionProvider>
   );
 }

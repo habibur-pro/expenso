@@ -114,7 +114,7 @@ Don't auto-install packages. Before adding one: check if an existing dependency 
 
 ## Testing & Verification
 
-Check `package.json` for which scripts actually exist before assuming (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`; `pnpm prisma validate` / `pnpm prisma generate` for schema work). Run relevant checks after implementing. Test important functionality: expense CRUD, search, filtering, analytics, auth, authorization, and user data isolation. When checks fail, fix the actual cause — don't hide or suppress errors.
+Check `package.json` for which scripts actually exist before assuming (`pnpm lint`, `pnpm typecheck`, `pnpm test`; `pnpm prisma validate` / `pnpm prisma generate` for schema work). Run relevant checks after implementing. Test important functionality: expense CRUD, search, filtering, analytics, auth, authorization, and user data isolation. When checks fail, fix the actual cause — don't hide or suppress errors.
 
 ## Git
 

@@ -1,5 +1,6 @@
-import { ChevronDown } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Section } from "./section";
+import { Reveal, RevealGroup, RevealItem } from "./motion/reveal";
 
 const FAQS = [
   {
@@ -27,26 +28,34 @@ const FAQS = [
 export function Faq() {
   return (
     <Section id="faq" aria-labelledby="faq-heading">
-      <h2
-        id="faq-heading"
-        className="text-3xl font-semibold tracking-tight text-foreground"
-      >
-        Frequently asked questions
-      </h2>
-      <div className="mt-8 divide-y divide-border border-t border-border">
+      <Reveal>
+        <h2
+          id="faq-heading"
+          className="max-w-2xl font-heading text-3xl font-semibold tracking-[-0.02em] text-balance text-foreground sm:text-4xl"
+        >
+          Frequently asked questions
+        </h2>
+      </Reveal>
+      <RevealGroup className="mt-10 max-w-3xl divide-y divide-border border-t border-border">
         {FAQS.map((item) => (
-          <details key={item.q} className="group py-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-medium text-foreground marker:hidden">
-              {item.q}
-              <ChevronDown
-                aria-hidden="true"
-                className="size-4 shrink-0 text-muted-foreground motion-safe:transition-transform group-open:rotate-180"
-              />
-            </summary>
-            <p className="mt-3 text-sm text-muted-foreground">{item.a}</p>
-          </details>
+          <RevealItem key={item.q}>
+            <details className="group py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-heading text-base font-medium text-foreground transition-colors marker:hidden hover:text-primary">
+                {item.q}
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors group-open:bg-primary group-open:text-primary-foreground">
+                  <Plus
+                    aria-hidden="true"
+                    className="size-4 motion-safe:transition-transform motion-safe:duration-300 group-open:rotate-45"
+                  />
+                </span>
+              </summary>
+              <p className="animate-in fade-in slide-in-from-top-1 mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground duration-300">
+                {item.a}
+              </p>
+            </details>
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
     </Section>
   );
 }
