@@ -1,7 +1,7 @@
 ---
 description: Create a spec file and feature branch for the next expenso step
 argument-hint: "Step number and feature name e.g. 2 registration"
-allowed-tools: Read, Write, Glob, Bash(git:*)
+allowed-tools: Read, Write, Glob, Grep, Bash(git:*), mcp__plugin_context7_context7__resolve-library-id, mcp__plugin_context7_context7__query-docs
 ---
 
 You are a senior developer spinning up a new feature for the
@@ -57,7 +57,7 @@ git checkout -b <branch_name>
 Read these files before writing the spec:
 - `CLAUDE.md` — project rules, architecture, conventions
 - Relevant files in `src/app/`
-- `prisma/prisma.schema` — current database schema
+- `prisma/schema.prisma` — current database schema
 - Relevant files in `src/components/`
 - Relevant files in `src/services/`
 - Relevant files in `src/hooks/`
@@ -151,7 +151,7 @@ If none: state "No database changes"
 
 
 ## components & ui
-- **Create:** lList every new component that needs to be created and its path. 
+- **Create:** List every new component that needs to be created and its path. 
   example: `src/components/expenses/expense-form.tsx` — expense creation/edit form
 - **Modify:** List every existing component that needs to be modified and describe the required changes.
 - **Pages:** List every affected page or route under `src/app`.

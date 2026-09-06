@@ -48,7 +48,7 @@ Tailwind CSS + shadcn/ui only — no other CSS framework. Avoid inline styles un
 ## Database & Prisma
 
 - MongoDB only; Prisma is the access layer; schema lives in `prisma/schema.prisma`; use a shared Prisma client instance; avoid raw MongoDB queries unless required; keep DB logic reusable, not duplicated across routes; never expose credentials.
-- Before touching the schema: inspect it, understand models/relationships, check the installed Prisma version, use Context7 if version-sensitive, identify destructive changes, make the smallest required change, then validate (`pnpm prisma validate`) and regenerate the client (`pnpm prisma generate`) as needed, and verify affected functionality. Never make destructive DB changes without explicit permission.
+- Before touching the schema: inspect it, understand models/relationships, check the installed Prisma version, use Context7 if version-sensitive, identify destructive changes, make the smallest required change, then validate (`pnpm prisma validate`), push the changes to MongoDB (`pnpm prisma db push` — MongoDB has no SQL-style migrations, so this is how schema changes get applied), and regenerate the client (`pnpm prisma generate`) as needed, and verify affected functionality. Never make destructive DB changes without explicit permission.
 
 ## Auth & Authorization
 
@@ -79,6 +79,20 @@ Keep secrets in env files; document required vars in `.env.example` without real
 ## Responsive UI / UX
 
 Must work on mobile, tablet, and desktop — not desktop-only. Expense creation/history stay convenient on small screens; analytics/charts stay usable on mobile. Aim for a clean, modern, consistent, accessible UI; prioritize usability over decoration.
+
+## SEO
+
+Follow SEO best practices for all public-facing pages (landing, auth, marketing) using Next.js's built-in Metadata API — do not add a third-party SEO package unless asked.
+
+- **Metadata:** Set `title` and `description` via the Metadata API (`generateMetadata` or the static `metadata` export) on every public route; avoid duplicate/generic titles across pages.
+- **robots.txt:** Generate via `app/robots.ts`. Allow crawling of public pages; disallow authenticated routes (`/dashboard`, `/expenses`, `/analytics`, etc.) and API routes (`/api/*`).
+- **Sitemap:** Generate via `app/sitemap.ts`, including only public, indexable pages.
+- **Social sharing (Open Graph / Twitter Cards):** Set `openGraph` and `twitter` fields in metadata for public pages — title, description, and an image — so links render correctly when shared.
+- **Canonical URLs:** Set `alternates.canonical` where a page could otherwise be reached by more than one URL.
+- **Indexing control:** Set `robots: { index: false }` in metadata for authenticated/private pages so they're excluded even if linked externally.
+- **Semantic HTML & accessibility:** One `<h1>` per page, logical heading hierarchy, descriptive `alt` text on images, semantic landmarks (`<nav>`, `<main>`, etc.).
+- **Structured data:** Only add JSON-LD if a specific page type calls for it — don't add speculatively.
+- Don't over-invest in SEO for pages that are inherently private/behind login — prioritize the public-facing surface (landing, sign-up/login).
 
 ## Performance
 
