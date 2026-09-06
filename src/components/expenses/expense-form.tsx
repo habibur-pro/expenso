@@ -160,6 +160,9 @@ export function ExpenseForm({
           `Added ${formatMoney(data.amountMinor, data.currency)} to ${data.categoryName}.`,
         );
         amountInputRef.current?.focus();
+        // Re-renders the server-computed dashboard summary with the new
+        // expense included, without losing the client-side form state above.
+        router.refresh();
         return;
       }
 
