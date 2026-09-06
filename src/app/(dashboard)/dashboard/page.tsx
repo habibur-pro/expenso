@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { AddExpenseDialog } from "@/components/expenses/add-expense-dialog";
 import { SignOutButton } from "@/components/auth/sign-out-button";
 import { requireSession } from "@/lib/auth-session";
+import { CURRENCY } from "@/lib/constants/currency";
+import { ensureDefaultCategories, listCategories } from "@/services/categories";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -10,6 +13,10 @@ export const metadata: Metadata = {
 export default async function DashboardPage() {
   const session = await requireSession();
   const { name, image } = session.user;
+  const userId = session.user.id;
+
+  await ensureDefaultCategories(userId);
+  const categories = await listCategories(userId);
 
   return (
     <main className="flex min-h-svh items-center justify-center px-4 py-12 sm:px-6">
@@ -27,7 +34,10 @@ export default async function DashboardPage() {
           Signed in as {name}
         </h1>
 
-        <SignOutButton />
+        <div className="flex items-center gap-2">
+          <AddExpenseDialog categories={categories} currency={CURRENCY} />
+          <SignOutButton />
+        </div>
       </div>
     </main>
   );
